@@ -20,6 +20,8 @@ class Prioridade(Escalonamento.Escalonamento):
     def executar(self):
         super().executar(self.funcaoDeSelecao)
 
-escalonador = Prioridade(100, Util.carregar()[0:20])
-escalonador.executar()
+
+
+
+
 

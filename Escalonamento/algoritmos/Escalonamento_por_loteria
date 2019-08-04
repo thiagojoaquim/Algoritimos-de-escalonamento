@@ -1,0 +1,23 @@
+from algoritmos import Escalonamento
+from random import randint
+from utilitarios import Util
+from processo import Processos
+import sys
+
+class Loteria(Escalonamento.Escalonamento):
+    def __init__(self, alfa:int, processos:list()):
+        super().__init__(alfa, processos)
+
+
+
+    def funcaoDeSelecao(self, lista:list):
+        return lista[randint(0, len(lista) - 1)]
+
+
+
+    def executar(self):
+        super().executar(self.funcaoDeSelecao)
+
+
+a = Loteria(100, Util.carregar()[0:20])
+a.executar()
