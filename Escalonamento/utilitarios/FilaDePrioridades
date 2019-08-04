@@ -1,0 +1,31 @@
+class FilaDePrioridades(object):
+    def __init__(self):
+        self.fila = []
+
+    def __str__(self):
+        return ' '.join([str(i) for i in self.fila])
+
+        # for checking if the fila is empty 
+
+    def estaVazia(self):
+        return len(self.fila) == []
+
+        # for inserting an element in the fila 
+
+    def insert(self, item):
+        self.fila.append(item)
+
+        # for popping an element based on Priority 
+
+    def deletar(self):
+        try:
+            max = 0
+            for i in range(len(self.fila)):
+                if self.fila[i] > self.fila[max]:
+                    max = i
+            item = self.fila[max]
+            del self.fila[max]
+            return item
+        except IndexError:
+            print()
+            exit() 

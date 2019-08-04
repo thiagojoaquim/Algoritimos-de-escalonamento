@@ -1,19 +1,25 @@
 from processo import Processos
 from algoritmos import Escalonamento
+from utilitarios import Util
+from processo import Processos
 import utilitarios
 import sys
 
-class Prioridade(Escalonamento):
-    def __init__(self, process):
-        Escalonamento.__init__(self, process)
 
-    def executePrioridadeEscalonamento(self):
-        for i in range(0, self.numero_de_processos):
-            process = self.find_Prioridade()
+class Prioridade(Escalonamento.Escalonamento):
+    def __init__(self, alfa:int, processos:list()):
+        super().__init__(alfa, processos)
 
-            self._total_turnarond += int(process.time_execution)
-        print(str(self._total_turnarond / 1000) + "ms")
+    def funcaoDeSelecao(self, lista):
+        maiorPrioridade = lista[0]
+        for i in range(0, len(lista)):
+            if maiorPrioridade.priority < lista[i].priority:
+                maiorPrioridade = lista[i]
+        return maiorPrioridade
 
+    def executar(self):
+        super().executar(self.funcaoDeSelecao)
 
-
+escalonador = Prioridade(100, Util.carregar()[0:20])
+escalonador.executar()
 

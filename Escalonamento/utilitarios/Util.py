@@ -5,8 +5,6 @@ def carregar():
     file = open("../Arquivos/cenario1.txt")
     cenario = file.read()
     cenario = cenario.split("\n")
-    print(cenario)
-    cenario = cenario[0:1]
     processos = []
     for c in cenario:
         c = c.split(',')
