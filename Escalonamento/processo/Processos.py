@@ -6,6 +6,11 @@ class Processos():
         self.__time_execution = int(time_execution)
         self.__blocked_time = blocked_time
         self.__current_blocked_time = int()
+        self.__waiting_time = 0
+
+    @property
+    def waiting_time(self):
+        return self.__waiting_time
 
     @property
     def id_process(self):
@@ -75,15 +80,17 @@ class Processos():
     def __lt__(self, other):
         return self.submission_time < other.submission_time
 
-    def decrementarTempoBloqueio(self):
+    def decrementarTempoBloqueio(self, beta):
         if (self.current_blocked_time > 0):
-            self.__current_blocked_time = int(self.__current_blocked_time) - 1
+            self.__current_blocked_time = int(self.__current_blocked_time) - beta
         return self.__current_blocked_time
 
     def bloquear(self):
         self.__current_blocked_time = self.__blocked_time
 
-    def executar(self):
-
-        self.time_execution -= 1
+    def executar(self, beta):
+        self.time_execution -= beta
         return self.time_execution
+
+    def esperar(self):
+        self.__waiting_time += 1
