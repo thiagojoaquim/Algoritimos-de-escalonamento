@@ -1,0 +1,4 @@
+Tempo de Espera total: 47682495
+Tempo de Espera Média: 2384124.75
+Tempo de Servico Total:9765
+Tempo de servico Médio: 488.25

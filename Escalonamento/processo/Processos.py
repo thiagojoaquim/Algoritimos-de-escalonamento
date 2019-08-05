@@ -1,10 +1,10 @@
 class Processos():
-    def __init__(self, id_process, submission_time, priority, time_execution, blocked_time: int):
+    def __init__(self, id_process, submission_time, priority, time_execution, blocked_time: int()):
         self.__id_process = id_process
         self.__submission_time = submission_time
         self.__priority = priority
         self.__time_execution = int(time_execution)
-        self.__blocked_time = blocked_time
+        self.__blocked_time = int(blocked_time)
         self.__current_blocked_time = int()
         self.__waiting_time = 0
 
@@ -38,7 +38,7 @@ class Processos():
 
     @property
     def current_blocked_time(self):
-        return int(self.__current_blocked_time)
+        return int(self.__blocked_time)
 
     @current_blocked_time.setter
     def blocked_time(self, current_blocked_time):
@@ -66,6 +66,8 @@ class Processos():
         return self.id_process == other.id_process
 
     def __ne__(self, other):
+        if self == None or other == None:
+            return False
         return self.id_process != other.id_process
 
     def __gt__(self, other):
@@ -80,10 +82,10 @@ class Processos():
     def __lt__(self, other):
         return self.submission_time < other.submission_time
 
-    def decrementarTempoBloqueio(self, beta):
-        if (self.current_blocked_time > 0):
-            self.__current_blocked_time = int(self.__current_blocked_time) - beta
-        return self.__current_blocked_time
+    def decrementarTempoBloqueio(self, beta:int()):
+        if (self.blocked_time > 0):
+            self.__blocked_time -= beta
+        return self.blocked_time
 
     def bloquear(self):
         self.__current_blocked_time = self.__blocked_time

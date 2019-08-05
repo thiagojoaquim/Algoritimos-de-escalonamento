@@ -7,8 +7,8 @@ import sys
 
 
 class Prioridade(Escalonamento.Escalonamento):
-    def __init__(self, alfa:int, processos:list()):
-        super().__init__(alfa, processos)
+    def __init__(self, alfa:int, processos:list() , beta:int):
+        super().__init__(alfa, processos , beta)
 
     def funcaoDeSelecao(self, lista):
         maiorPrioridade = lista[0]
@@ -22,6 +22,7 @@ class Prioridade(Escalonamento.Escalonamento):
 
 
 
-
+a = Prioridade(100, Util.carregar()[0:10])
+a.executar()
 
 

@@ -4,26 +4,14 @@ from utilitarios import Util
 from processo import Processos
 import sys
 
-class Loteria(Escalonamento.Escalonamento):
+class Garantido(Escalonamento.Escalonamento):
     def __init__(self, alfa:int, processos:list(), beta:int):
         super().__init__(alfa, processos, beta)
 
 
 
     def funcaoDeSelecao(self, lista:list):
-        return lista[randint(0, len(lista) - 1)]
-
-
+        return lista[0]
 
     def executar(self):
         super().executar(self.funcaoDeSelecao)
-
-
-b = 3
-c = 4
-if b == 3:
-    print(b)
-elif(c==4):
-    print(c)
-a = Loteria(100, Util.carregar()[0:20], 1)
-a.executar()

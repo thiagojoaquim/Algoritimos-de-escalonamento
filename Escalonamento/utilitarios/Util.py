@@ -11,4 +11,10 @@ def carregar():
         if c != ['']:
             aux = Processos.Processos(c[0], c[1], c[2], c[3], c[4])
             processos.append(aux)
+    file.close()
     return processos
+
+def escrever(string):
+    file = open("../Arquivos/Saida.txt",'w')
+    file.write(string)
+    file.close()

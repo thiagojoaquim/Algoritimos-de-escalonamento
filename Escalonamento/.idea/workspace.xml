@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="30e1395e-e51c-4d1e-9b64-b0fc9c936fd1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Arquivos/Saida.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/algoritmos/Escalonamento_garantido.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Escalonamento.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algoritmos/Escalonamento.py" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/Escalonamento.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoritmos/Escalonamento_por_loteria" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/Escalonamento_por_loteria" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoritmos/Escalonamento_por_prioridade.py" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/Escalonamento_por_prioridade.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoritmos/HRRN.py" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/HRRN.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processo/Processos.py" beforeDir="false" afterPath="$PROJECT_DIR$/processo/Processos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilitarios/Util.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilitarios/Util.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +60,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.HRRN">
+  <component name="RunManager" selected="Python.Escalonamento_por_loteria">
     <configuration name="Escalonamento" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Escalonamento" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -134,7 +145,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Processos" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Escalonamento" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -142,11 +153,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/algoritmos" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/processo" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/algoritmos/__init__.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/processo/Processos.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -157,11 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.HRRN" />
         <item itemvalue="Python.Escalonamento_por_loteria" />
-        <item itemvalue="Python.Escalonamento_por_prioridade" />
         <item itemvalue="Python.Escalonamento" />
-        <item itemvalue="Python.__init__" />
+        <item itemvalue="Python.HRRN" />
+        <item itemvalue="Python.Processos" />
+        <item itemvalue="Python.Escalonamento_por_prioridade" />
       </list>
     </recent_temporary>
   </component>
@@ -190,5 +201,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/algoritmos/Escalonamento.py</url>
+          <line>143</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
