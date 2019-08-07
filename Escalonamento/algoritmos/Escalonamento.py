@@ -170,7 +170,7 @@ class Escalonamento():
                     listaux.append(self.execucao)
                     proximo = funcaoDeSelecao([self.execucao, funcaoDeSelecao(self.prontos)])
                     if proximo.id_process != self.execucao.id_process:
-                        if self.prontos + self.bloqueados < 100:
+                        if len(self.prontos) + len(self.bloqueados) < 100:
                             self.prontos.append(self.execucao)
                         else:
                             self.todos_processos.append(self.execucao)
@@ -201,7 +201,7 @@ class Escalonamento():
         print("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos))
         print("Tempo de Servico Total: " + str(self.__total_service_time))
         print("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos))
-        print("Tempo de Retorno Médio: " + str(self.__total_turnarond / self.numeroDeProcessos))
+        print("Tempo de turnaround Médio: " + str(self.__total_turnarond / self.numeroDeProcessos))
         print("Tempo de Resposta Médio: " + str(self.tempo_de_resposta_total / self.numeroDeProcessos))
         print("Utilização do processador: " + str((self.__total_service_time / self.tempo) * 100) + "%")
         print("Throughput(Um processo é executado a cada): " + str(  int(self.tempo) / self.numeroDeProcessos  ))

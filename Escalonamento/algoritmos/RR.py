@@ -19,8 +19,13 @@ class RR(Escalonamento.Escalonamento):
                 self.filaDeProcessados.remove(processo)
 
     def funcaoDeSelecao(self, lista):
-        self.atualizarFilaDeProcessados() #Verifica se novos processos entraram na fila
-        retorno = self.filaDeProcessados[0]
+       # self.atualizarFilaDeProcessados() #Verifica se novos processos entraram na fila
+        retorno = self.prontos[0]
+        if self.execucao != None:
+            if retorno.id_process == self.execucao.id_process:
+                retorno = self.prontos[1]
+
+
         #self.filaDeProcessados.remove(retorno)
         ##   self.filaDeProcessados.append(retorno)
         return retorno
