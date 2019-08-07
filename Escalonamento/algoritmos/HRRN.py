@@ -5,8 +5,8 @@ from processo import Processos
 import sys
 
 class HRRN(Escalonamento.Escalonamento):
-    def __init__(self, alfa:int, processos:list(), beta:int):
-        super().__init__(alfa, processos)
+    def __init__(self, alfa:int, processos:list(), quantum:int):
+        super().__init__(alfa, processos, quantum, False)
 
 
 
@@ -28,3 +28,5 @@ class HRRN(Escalonamento.Escalonamento):
         super().executar(self.funcaoDeSelecao)
 
 
+a = HRRN(100, Util.carregar()[0:900], 1)
+a.executar()

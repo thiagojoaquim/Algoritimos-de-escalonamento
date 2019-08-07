@@ -6,7 +6,7 @@ sys.setrecursionlimit(1000000)
 
 
 class Escalonamento():
-    def __init__(self, alfa: int, processos: list(), beta: int):
+    def __init__(self, alfa: int, processos: list(), quantum: int, isPreemptivo: bool):
         self.numeroDeProcessos = len(processos)
         self.__todos_processos = processos
         self.__total_turnarond = 0
@@ -18,10 +18,12 @@ class Escalonamento():
         self.__bloqueados = list()
         self.__execucao = Processos.Processos
         self.__total_processos_ativos = 0
-        self.beta = beta
-        self.max_processos_em_execucao =  1
+        self.quantum = quantum
+        self.max_processos_em_execucao = 1
         self.isExecutando = False
-        self.tempo = 0
+        self.tempo = int(0)
+        self.isPreemptivo = isPreemptivo
+        self.tempo_de_resposta_total = int(0)
 
     @property
     def total_processos_ativos(self):
@@ -79,13 +81,14 @@ class Escalonamento():
                     # print("processo: " + str(processo.id_process) + ": "+ str(processo.current_blocked_time)
                     self.prontos.append(processo)
                     self.bloqueados.remove(processo)
-        while (len(self.todos_processos) > 0 and (len(self.bloqueados) + len(self.prontos)) < self.alfa):
-            #print("aaa")
-            if self.todos_processos.submission_time <= self.tempo:
-                self.prontos.append(self.todos_processos[0])
-                del self.todos_processos[0]
-            else:
-                break
+        i = int(0)
+        if (len(self.todos_processos) > 0 and (len(self.bloqueados) + len(self.prontos)) < self.alfa):
+            for processo in self.todos_processos:
+                if int(self.todos_processos[i].submission_time) <= int(self.tempo):
+                    self.prontos.append(self.todos_processos[0])
+                    del self.todos_processos[0]
+                else:
+                    break
 
     def bloquear(self):
         self.bloqueados.append(self.execucao)
@@ -95,12 +98,11 @@ class Escalonamento():
 
     def decrementarBloqueio(self):
         for processo in self.bloqueados:
-            processo.decrementarTempoBloqueio(self.beta)
+            processo.decrementarTempoBloqueio(self.quantum)
             # print("processo: " + str(processo.id_process) + ": "+ str(processo.current_blocked_time))
 
     def carregarFilas(self):
-        self.prontos = self.todos_processos[0:self.alfa - 1]
-        del self.todos_processos[0:self.alfa - 1]
+        self.todos_processos.sort()
 
     def esperar(self):
         for processo in self.prontos:
@@ -114,34 +116,20 @@ class Escalonamento():
         print("todos: " + str(len(self.todos_processos)))
         print("Executando processo ID: " + str(self.execucao.id_process) + "\n")
 
-    def processar(self, funcaoDeSelecao):
-        self.execucao = funcaoDeSelecao(self.prontos)
-        self.imprimir()
-        self.prontos.remove(self.execucao)
-        self.__tempo_total_de_espera += self.execucao.waiting_time
-        tempoRestante = self.execucao.executar(self.beta)
-        self.__total_service_time += 1
-        print("para ID: " + str(self.execucao.id_process) + " falta:  " + str(tempoRestante))
-        if (tempoRestante > 0):
-            self.bloquear()
-        else:
-            self.execucao = None
-            #self.escalonamentoMedioPrazo()
-
     def escrever(self):
         resp = ("Tempo de Espera total: " + str(self.__tempo_total_de_espera) + "\n") \
-               + ("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos)+ "\n") \
-               + ("Tempo de Servico Total:" + str(self.__total_service_time)+ "\n") + \
-               ("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos)+ "\n")
+               + ("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos) + "\n") \
+               + ("Tempo de Servico Total:" + str(self.__total_service_time) + "\n") + \
+               ("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos) + "\n")
         Util.escrever(resp)
 
     def executar(self, funcaoDeSelecao):
-        self.carregarFilas()
+        self.carregarFilas()  # Ordena processos com base na submissão
         tempo = int(0)
         # ENQUANTO EXISTIR PROCESSO PARA SER PROCESSADO
         while (len(self.bloqueados) + len(self.prontos) + len(self.todos_processos)) > 0:
             tempoRestante = None
-            self.tempo += 1
+            self.tempo += self.quantum
             self.decrementarBloqueio()
             self.esperar()
             if len(self.prontos) > 0 and not self.isExecutando:
@@ -149,10 +137,14 @@ class Escalonamento():
                 self.isExecutando = True
                 self.imprimir()
                 self.prontos.remove(self.execucao)
-                tempoRestante = self.execucao.executar(self.beta)
-                self.__total_service_time += 1
+                tempoRestante = self.execucao.executar(self.quantum)
+                self.tempo += self.quantum - 1
+                self.__total_service_time += self.quantum
                 print("para ID: " + str(self.execucao.id_process) + " falta:  " + str(tempoRestante))
                 if tempoRestante <= 0:
+                    self.__tempo_total_de_espera += self.execucao.waiting_time
+                    self.execucao.return_time += self.execucao.waiting_time
+                    self.__total_turnarond += self.execucao.return_time
                     self.execucao = None
                     self.isExecutando = False
                 else:
@@ -161,36 +153,47 @@ class Escalonamento():
                         self.execucao = None
                         self.isExecutando = False
 
+
             elif self.isExecutando:
-               tempoRestante = self.execucao.executar(self.beta)
-               if tempoRestante <= 0:
-                   self.execucao = None
-                   self.isExecutando = False
-               else:
-                   if self.execucao.blocked_time > 0:
-                       self.bloquear()
-                       self.execucao = None
-                       self.isExecutando = False
-               self.__total_service_time += 1
+
+                if self.isPreemptivo and len(self.prontos) > 0:
+                    listaux = list()
+                    listaux.append(self.execucao)
+                    proximo = funcaoDeSelecao([self.execucao, funcaoDeSelecao(self.prontos)])
+                    if proximo.id_process != self.execucao.id_process:
+                        self.prontos.append(self.execucao)
+                        self.execucao = proximo
+                        self.prontos.remove(proximo)
+
+                tempoRestante = self.execucao.executar(self.quantum)
+                self.tempo += self.quantum - 1
+                self.__total_service_time += self.quantum
+                print("para ID: " + str(self.execucao.id_process) + " falta:  " + str(tempoRestante))
+                if tempoRestante <= 0:
+                    self.__tempo_total_de_espera += self.execucao.waiting_time
+                    self.execucao.return_time += self.execucao.waiting_time
+                    self.__total_turnarond += self.execucao.return_time
+                    self.execucao.response_time = self.tempo - int(self.execucao.submission_time)
+                    self.tempo_de_resposta_total += self.execucao.response_time
+                    self.execucao = None
+                    self.isExecutando = False
+                else:
+                    if self.execucao.blocked_time > 0:
+                        self.bloquear()
+                        self.execucao = None
+                        self.isExecutando = False
+
+
+
+
             else:
                 self.escalonamentoMedioPrazo()
-        print(self.__total_turnarond)
+        print("Tempo: " + str(self.tempo))
         print("Tempo de Espera total: " + str(self.__tempo_total_de_espera))
         print("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos))
-        print("Tempo de Servico Total:" + str(self.__total_service_time))
+        print("Tempo de Servico Total: " + str(self.__total_service_time))
         print("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos))
-
-    def test(self):
-        self.bloqueados = self.todos_processos[0:10]
-        for processo in self.bloqueados:
-            processo.bloquear()
-        while (len(self.bloqueados) > 0):
-            self.decrementarBloqueio()
-
-
-def funcao(lista):
-    if (len(lista) <= 0):
-        return None
-    resp = lista[0]
-    del lista[0]
-    return resp
+        print("Tempo de Retorno Médio: " + str(self.__total_turnarond / self.numeroDeProcessos))
+        print("Tempo de Resposta Médio: " + str(self.tempo_de_resposta_total / self.numeroDeProcessos))
+        print("Utilização do processador: " + str((self.__total_service_time / self.tempo) * 100) + "%")
+        print("Throughput(Um processo é executado a cada): " + str(  int(self.tempo) / self.numeroDeProcessos  ))

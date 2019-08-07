@@ -7,6 +7,9 @@ class Processos():
         self.__blocked_time = int(blocked_time)
         self.__current_blocked_time = int()
         self.__waiting_time = 0
+        self.prioridadeMultilevel = 0
+        self.return_time = int(time_execution)
+        self.response_time = 0
 
     @property
     def waiting_time(self):
@@ -63,25 +66,24 @@ class Processos():
     def __eq__(self, other):
         if (other == None):
             return False
-        return self.id_process == other.id_process
+        return int(self.id_process) == int(other.id_process)
 
     def __ne__(self, other):
         if self == None or other == None:
             return False
-        return self.id_process != other.id_process
+        return int(self.id_process) != int(other.id_process)
 
     def __gt__(self, other):
-        return self.submission_time > other.submission_time
+        return int(self.submission_time) > int(other.submission_time)
 
     def __ge__(self, other):
-        return self.submission_time >= other.submission_time
+        return int(self.submission_time) >= (other.submission_time)
 
     def __le__(self, other):
-        return self.submission_time <= other.submission_time
+        return int(self.submission_time) <= int(other.submission_time)
 
     def __lt__(self, other):
-        return self.submission_time < other.submission_time
-
+        return int(self.submission_time) < int(other.submission_time)
     def decrementarTempoBloqueio(self, beta:int()):
         if (self.blocked_time > 0):
             self.__blocked_time -= beta

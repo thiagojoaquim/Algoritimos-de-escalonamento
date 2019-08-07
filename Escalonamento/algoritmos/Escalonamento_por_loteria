@@ -5,8 +5,8 @@ from processo import Processos
 import sys
 
 class Loteria(Escalonamento.Escalonamento):
-    def __init__(self, alfa:int, processos:list(), beta:int):
-        super().__init__(alfa, processos, beta)
+    def __init__(self, alfa:int, processos:list(), quantum:int):
+        super().__init__(alfa, processos, quantum, False)
 
 
 
@@ -19,11 +19,5 @@ class Loteria(Escalonamento.Escalonamento):
         super().executar(self.funcaoDeSelecao)
 
 
-b = 3
-c = 4
-if b == 3:
-    print(b)
-elif(c==4):
-    print(c)
-a = Loteria(100, Util.carregar()[0:20], 1)
+a = Loteria(100, Util.carregar()[0:100], 1)
 a.executar()
