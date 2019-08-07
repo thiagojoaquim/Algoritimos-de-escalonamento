@@ -96,5 +96,5 @@ class Processos():
         self.time_execution -= beta
         return self.time_execution
 
-    def esperar(self):
-        self.__waiting_time += 1
+    def esperar(self, quantum):
+        self.__waiting_time += quantum

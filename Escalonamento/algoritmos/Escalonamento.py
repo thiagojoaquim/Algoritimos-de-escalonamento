@@ -82,12 +82,14 @@ class Escalonamento():
                     self.prontos.append(processo)
                     self.bloqueados.remove(processo)
         i = int(0)
-        if (len(self.todos_processos) > 0 and (len(self.bloqueados) + len(self.prontos)) < self.alfa):
+        sair = False
+        if (len(self.todos_processos) > 0 and (len(self.bloqueados) + len(self.prontos)) < self.alfa and not sair):
             for processo in self.todos_processos:
-                if int(self.todos_processos[i].submission_time) <= int(self.tempo):
+                if int(self.todos_processos[i].submission_time) <= int(self.tempo) and len(self.prontos) + len(self.bloqueados) < self.alfa:
                     self.prontos.append(self.todos_processos[0])
                     del self.todos_processos[0]
                 else:
+                    sair = True
                     break
 
     def bloquear(self):
@@ -106,9 +108,9 @@ class Escalonamento():
 
     def esperar(self):
         for processo in self.prontos:
-            processo.esperar()
+            processo.esperar(self.quantum)
         for processo in self.bloqueados:
-            processo.esperar()
+            processo.esperar(self.quantum)
 
     def imprimir(self):
         print("prontos: " + str(len(self.prontos)))
@@ -117,10 +119,14 @@ class Escalonamento():
         print("Executando processo ID: " + str(self.execucao.id_process) + "\n")
 
     def escrever(self):
-        resp = ("Tempo de Espera total: " + str(self.__tempo_total_de_espera) + "\n") \
-               + ("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos) + "\n") \
-               + ("Tempo de Servico Total:" + str(self.__total_service_time) + "\n") + \
-               ("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos) + "\n")
+        resp = "Tempo: " + str(self.tempo) + ("Tempo de Espera total: " + str(self.__tempo_total_de_espera)) \
+               +("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos))\
+               +("Tempo de Servico Total: " + str(self.__total_service_time))\
+               +("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos))\
+               +("Tempo de Retorno Médio: " + str(self.__total_turnarond / self.numeroDeProcessos))\
+               +("Tempo de Resposta Médio: " + str(self.tempo_de_resposta_total / self.numeroDeProcessos))\
+               +("Utilização do processador: " + str((self.__total_service_time / self.tempo) * 100) + "%")\
+               +("Throughput(Um processo é executado a cada): " + str(  int(self.tempo) / self.numeroDeProcessos  ))
         Util.escrever(resp)
 
     def executar(self, funcaoDeSelecao):
@@ -128,6 +134,7 @@ class Escalonamento():
         tempo = int(0)
         # ENQUANTO EXISTIR PROCESSO PARA SER PROCESSADO
         while (len(self.bloqueados) + len(self.prontos) + len(self.todos_processos)) > 0:
+            self.escalonamentoMedioPrazo()
             tempoRestante = None
             self.tempo += self.quantum
             self.decrementarBloqueio()
@@ -145,6 +152,8 @@ class Escalonamento():
                     self.__tempo_total_de_espera += self.execucao.waiting_time
                     self.execucao.return_time += self.execucao.waiting_time
                     self.__total_turnarond += self.execucao.return_time
+                    self.execucao.response_time = self.tempo - int(self.execucao.submission_time)
+                    self.tempo_de_resposta_total += self.execucao.response_time
                     self.execucao = None
                     self.isExecutando = False
                 else:
@@ -161,7 +170,10 @@ class Escalonamento():
                     listaux.append(self.execucao)
                     proximo = funcaoDeSelecao([self.execucao, funcaoDeSelecao(self.prontos)])
                     if proximo.id_process != self.execucao.id_process:
-                        self.prontos.append(self.execucao)
+                        if self.prontos + self.bloqueados < 100:
+                            self.prontos.append(self.execucao)
+                        else:
+                            self.todos_processos.append(self.execucao)
                         self.execucao = proximo
                         self.prontos.remove(proximo)
 
@@ -184,10 +196,6 @@ class Escalonamento():
                         self.isExecutando = False
 
 
-
-
-            else:
-                self.escalonamentoMedioPrazo()
         print("Tempo: " + str(self.tempo))
         print("Tempo de Espera total: " + str(self.__tempo_total_de_espera))
         print("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos))

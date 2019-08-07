@@ -28,5 +28,3 @@ class HRRN(Escalonamento.Escalonamento):
         super().executar(self.funcaoDeSelecao)
 
 
-a = HRRN(100, Util.carregar()[0:900], 1)
-a.executar()

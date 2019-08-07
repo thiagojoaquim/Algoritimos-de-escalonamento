@@ -19,5 +19,3 @@ class Loteria(Escalonamento.Escalonamento):
         super().executar(self.funcaoDeSelecao)
 
 
-a = Loteria(100, Util.carregar()[0:100], 1)
-a.executar()

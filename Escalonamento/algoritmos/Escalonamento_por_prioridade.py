@@ -22,7 +22,3 @@ class Prioridade(Escalonamento.Escalonamento):
 
 
 
-a = Prioridade(100, Util.carregar(), 10)
-a.executar()
-
-

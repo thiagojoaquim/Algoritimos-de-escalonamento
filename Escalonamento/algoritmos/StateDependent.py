@@ -21,7 +21,3 @@ class StateDependent(RR.RR):
         super().executar(self.funcaoDeSelecao)
 
 
-a = StateDependent(100, Util.carregar()[0:2], 10)
-
-
-a.executar()

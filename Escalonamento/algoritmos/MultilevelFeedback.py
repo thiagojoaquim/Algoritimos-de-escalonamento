@@ -6,9 +6,12 @@ import sys
 
 
 class MultilevelFeedback(Escalonamento.Escalonamento):
-    def __init__(self, alfa: int, processos: list(), quantum: int):
-        super().__init__(alfa, processos, quantum, True)
+    def __init__(self, alfa: int, processos: list(), quantumx: int, quantumy, quantumz):
+        super().__init__(alfa, processos, quantumx, True)
         self.PrioridadeMaxima = -1
+        self.quantumBaixo = quantumx
+        self.quantumMedio = quantumy
+        self.quantumAlto = quantumz
 
     def funcaoDeSelecao(self, lista):
         retorno = self.prontos[0]
@@ -18,15 +21,15 @@ class MultilevelFeedback(Escalonamento.Escalonamento):
             if processo.prioridadeMultilevel > retorno.prioridadeMultilevel:
                 retorno = processo
         if retorno.prioridadeMultilevel == 0:
-            self.quantum = 2
+            self.quantum = self.quantumBaixo
             retorno.prioridadeMultilevel = 1
 
         elif retorno.prioridadeMultilevel == 1:
-            self.quantum = 4
+            self.quantum = self.quantumMedio
             retorno.prioridadeMultilevel = 2
 
         else:
-            self.quantum = 6
+            self.quantum = 1
             self.PrioridadeMaxima = retorno.id_process
         return retorno
 
@@ -36,7 +39,4 @@ class MultilevelFeedback(Escalonamento.Escalonamento):
         super().executar(self.funcaoDeSelecao)
 
 
-a = MultilevelFeedback(100, Util.carregar()[0:20], 1)
 
-
-a.executar()

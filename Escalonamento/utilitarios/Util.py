@@ -1,8 +1,8 @@
 
 from processo import Processos
 
-def carregar():
-    file = open("../Arquivos/cenario1.txt")
+def carregar(caminho):
+    file = open(caminho)
     cenario = file.read()
     cenario = cenario.split("\n")
     processos = []

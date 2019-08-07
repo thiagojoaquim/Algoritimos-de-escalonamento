@@ -22,5 +22,3 @@ class Garantido(Escalonamento.Escalonamento):
     def executar(self):
         super().executar(self.funcaoDeSelecao)
 
-a = Garantido(100, Util.carregar()[0:20], 1)
-a.executar()
