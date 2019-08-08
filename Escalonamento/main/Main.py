@@ -29,7 +29,7 @@ if __name__ == '__main__':
         escalonamento = HRRN.HRRN(100, Util.carregar(caminho), 1)
 
     elif algoritmo == 4:
-        escalonamento = StateDependent.StateDependent(100, Util.carregar(caminho), 1)
+        escalonamento = StateDependent.StateDependent(100, Util.carregar(caminho), 4)
     elif algoritmo == 5:
         escalonamento = RR.RR(100, Util.carregar(caminho), 4)
     elif algoritmo == 6:

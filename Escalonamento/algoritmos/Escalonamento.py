@@ -119,14 +119,14 @@ class Escalonamento():
         print("Executando processo ID: " + str(self.execucao.id_process) + "\n")
 
     def escrever(self):
-        resp = "Tempo: " + str(self.tempo) + ("Tempo de Espera total: " + str(self.__tempo_total_de_espera)) \
-               +("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos))\
-               +("Tempo de Servico Total: " + str(self.__total_service_time))\
-               +("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos))\
-               +("Tempo de Retorno Médio: " + str(self.__total_turnarond / self.numeroDeProcessos))\
-               +("Tempo de Resposta Médio: " + str(self.tempo_de_resposta_total / self.numeroDeProcessos))\
-               +("Utilização do processador: " + str((self.__total_service_time / self.tempo) * 100) + "%")\
-               +("Throughput(Um processo é executado a cada): " + str(  int(self.tempo) / self.numeroDeProcessos  ))
+        resp = "Tempo: " + str(self.tempo) + ("\nTempo de Espera total: " + str(self.__tempo_total_de_espera)) \
+               +("\nTempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos))\
+               +("\nTempo de Servico Total: " + str(self.__total_service_time))\
+               +("\nTempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos))\
+               +("\nTempo de Retorno Médio: " + str(self.__total_turnarond / self.numeroDeProcessos))\
+               +("\nTempo de Resposta Médio: " + str(self.tempo_de_resposta_total / self.numeroDeProcessos))\
+               +("\nUtilização do processador: " + str((self.__total_service_time / self.tempo) * 100) + "%")\
+               +("\nThroughput(Um processo é executado a cada): " + str(  int(self.tempo) / self.numeroDeProcessos  ))
         Util.escrever(resp)
 
     def executar(self, funcaoDeSelecao):
@@ -178,7 +178,7 @@ class Escalonamento():
                         self.prontos.remove(proximo)
 
                 tempoRestante = self.execucao.executar(self.quantum)
-                self.tempo += self.quantum - 1
+                self.tempo += self.quantum
                 self.__total_service_time += self.quantum
                 print("para ID: " + str(self.execucao.id_process) + " falta:  " + str(tempoRestante))
                 if tempoRestante <= 0:
@@ -197,11 +197,11 @@ class Escalonamento():
 
 
         print("Tempo: " + str(self.tempo))
-        print("Tempo de Espera total: " + str(self.__tempo_total_de_espera))
+
         print("Tempo de Espera Média: " + str(self.__tempo_total_de_espera / self.numeroDeProcessos))
-        print("Tempo de Servico Total: " + str(self.__total_service_time))
         print("Tempo de servico Médio: " + str(self.__total_service_time / self.numeroDeProcessos))
         print("Tempo de turnaround Médio: " + str(self.__total_turnarond / self.numeroDeProcessos))
         print("Tempo de Resposta Médio: " + str(self.tempo_de_resposta_total / self.numeroDeProcessos))
         print("Utilização do processador: " + str((self.__total_service_time / self.tempo) * 100) + "%")
         print("Throughput(Um processo é executado a cada): " + str(  int(self.tempo) / self.numeroDeProcessos  ))
+        self.escrever()

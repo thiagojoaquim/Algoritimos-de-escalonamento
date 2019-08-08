@@ -1,4 +1,9 @@
-Tempo de Espera total: 47682495
-Tempo de Espera Média: 2384124.75
-Tempo de Servico Total:9765
-Tempo de servico Médio: 488.25
+Tempo: 1123287
+Tempo de Espera total: 52424311
+Tempo de Espera Média: 52424.311
+Tempo de Servico Total: 562619
+Tempo de servico Médio: 562.619
+Tempo de Retorno Médio: 52986.838
+Tempo de Resposta Médio: 722127.285
+Utilização do processador: 50.086843344577126%
+Throughput(Um processo é executado a cada): 1123.287

@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="30e1395e-e51c-4d1e-9b64-b0fc9c936fd1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arquivos/Saida.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Arquivos/Saida.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algoritmos/Escalonamento.py" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/Escalonamento.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algoritmos/Escalonamento_por_prioridade.py" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/Escalonamento_por_prioridade.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algoritmos/RR.py" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/RR.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algoritmos/StateDependent.py" beforeDir="false" afterPath="$PROJECT_DIR$/algoritmos/StateDependent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

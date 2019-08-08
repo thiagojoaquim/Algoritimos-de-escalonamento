@@ -14,7 +14,10 @@ class StateDependent(RR.RR):
 
     def funcaoDeSelecao(self, lista):
         retorno = super().funcaoDeSelecao(lista)
-        self.quantum = int(self.quantumPadrao / len(self.prontos))
+        quantumNovo = int(self.quantumPadrao / len(self.prontos))
+        if quantumNovo < 1:
+            self.quantum = 1
+        else: self.quantum = quantumNovo
         return retorno
 
     def executar(self):

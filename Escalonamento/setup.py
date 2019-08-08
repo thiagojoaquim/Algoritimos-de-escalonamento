@@ -11,4 +11,4 @@ setup(
     author_email='',
     description=''
 )
-Main()
+
